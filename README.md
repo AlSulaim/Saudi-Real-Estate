@@ -4,7 +4,7 @@ I explored real estate sales records from Saudi Arabia for Q1 and Q2 of 2024. I 
 
 > **About the data:** The records come from Saudi Ministry of Justice data shared in the [Saudi Real Estate Data repository](https://github.com/civillizard/Saudi-Real-Estate-Data/tree/main/moj/sales). The price column is the **total recorded transaction value**, which can cover more than one property. This is not a dataset of house listing prices.
 
-![Market Overview](screenshots/dashboard.png)
+![Market Overview](screenshots/Screenshot.png)
 
 ## Business questions
 
