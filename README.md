@@ -2,11 +2,9 @@
 
 I explored real estate sales records from Saudi Arabia for Q1 and Q2 of 2024. I cleaned the data in Python, built a one-page Power BI dashboard, and built and evaluated a basic machine learning model to predict transaction values.
 
-> **About the data:** The records come from Saudi Ministry of Justice data shared in the https://github.com/civillizard/Saudi-Real-Estate-Data/tree/main/moj/sales . The price column is the **total recorded transaction value**, which can cover more than one property. This is not a dataset of house listing prices.
+> **About the data:** The records come from Saudi Ministry of Justice data shared in the [Saudi Real Estate Data repository](https://github.com/civillizard/Saudi-Real-Estate-Data/tree/main/moj/sales). The price column is the **total recorded transaction value**, which can cover more than one property. This is not a dataset of house listing prices.
 
-![Market Overview](screenshots/Screenshot.png)
-
-
+![Market Overview](screenshots/dashboard.png)
 
 ## Business questions
 
@@ -15,20 +13,17 @@ I explored real estate sales records from Saudi Arabia for Q1 and Q2 of 2024. I 
 3. How are transactions split between residential, commercial and agricultural properties?
 4. Can a basic machine learning model estimate the value of Q2 transactions using the location, property category and area?
 
-
-
 ## Data
 
 I combined the two quarterly files and kept the quarter as a separate column.
 
-| File | Rows |
-| `data/MOJ-Sales-2024-Q1.csv` | 59,099 |
-| `data/MOJ-Sales-2024-Q2.csv` | 48,272 |
-| `data/real_estate_clean.csv` | 107,370 |
+| File | Rows | Description |
+|---|---:|---|
+| `data/MOJ-Sales-2024-Q1.csv` | 59,099 | Original Q1 data |
+| `data/MOJ-Sales-2024-Q2.csv` | 48,272 | Original Q2 data |
+| `data/real_estate_clean.csv` | 107,370 | Cleaned dataset |
 
 The data includes region, city, district, date, property classification, number of properties, transaction value and area. I removed the empty row, cleaned the numeric columns and checked for invalid values. The Power BI report uses one cleaned table.
-
-
 
 ## Measures
 
@@ -42,8 +37,6 @@ The main Power BI measures are:
 ## Report page
 
 **Market Overview** — One page with a Q1/Q2 selector, four KPI cards, monthly activity, a regional treemap, transaction types and the top cities by sales value. Selecting a region filters the other visuals.
-
-
 
 ## Machine learning
 
@@ -63,9 +56,15 @@ Results on **48,271 Q2 records**:
 
 The model reduced MAE by about **22%** compared with the baseline. Its R² was **0.18**, so there is still a lot it cannot explain. Large commercial transactions were especially hard to predict. This is an initial modeling approach, **not a reliable property valuation tool**.
 
+### Model evaluation charts
+
+| Actual vs. predicted values | Prediction error by property type |
+|---|---|
+| ![](screenshots/ml_actual_vs_predicted.png) | ![](screenshots/ml_error_by_property_type.png) |
+
+The scatter plot is zoomed to SAR 5M for readability; the results above include all Q2 transactions. The notebook also has the baseline vs. model MAE chart.
+
 The steps and code are in [`notebooks/Transaction_Value_Prediction.ipynb`](notebooks/Transaction_Value_Prediction.ipynb).
-
-
 
 ## Key findings (Q1 vs Q2 2024)
 
@@ -77,7 +76,12 @@ The steps and code are in [`notebooks/Transaction_Value_Prediction.ipynb`](noteb
 
 The rise in the median does not necessarily mean properties became more expensive. The mix of properties sold may have changed between quarters.
 
+## How to open it
 
+1. Download this repository and open `powerbi/SAUDI_REAL_ESTATE.pbix` in Power BI Desktop.
+2. The report contains imported data. If you need to refresh it, change the CSV source path in Power Query to your local `data/real_estate_clean.csv`.
+3. Install the Python packages with `pip install -r requirements.txt`.
+4. From the project folder, run `jupyter notebook`. Open `notebooks/Saudi_Real_Estate_Market_Radar.ipynb` for the data analysis or `notebooks/Transaction_Value_Prediction.ipynb` for ML. Run the cells from top to bottom.
 
 ## Tools
 
